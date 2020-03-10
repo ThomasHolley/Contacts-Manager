@@ -1,0 +1,8 @@
+<button {{action "addNew"}} class="btn btn-primary">Ajouter</button>
+
+<ul>
+  {{#each model.contacts as |contact|}}
+    <li>{{contact.name}} <button {{action "remove" contact}}>x</button></li>
+  {{/each}}
+</ul>
+{{outlet}}
