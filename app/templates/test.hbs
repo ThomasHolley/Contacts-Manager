@@ -1,8 +1,17 @@
-<button {{action "addNew"}} class="btn btn-primary">Ajouter</button>
+<div class="card">
+  {{#if model.deletedsCount}}
+    <button {{action "cancelUpdates" model}} class="btn btn-danger">
+      Annuler suppression ({{model.deletedsCount}})
+    </button>
+  {{/if}}
+  <input type="text" placeholder="Filtrer.." class="form-control" >
 
-<ul>
-  {{#each model.contacts as |contact|}}
-    <li>{{contact.name}} <button {{action "remove" contact}}>x</button></li>
-  {{/each}}
-</ul>
+  <ul class="list-group list-group-flush">
+    {{#each model.contacts as |contact|}}
+      <li class="list-group-item">{{contact.name}} {{contact.firstname}} {{contact.email}} <button {{action "remove" contact}}>x</button></li>
+    {{/each}}
+  </ul>
+</div>
+<button href="test/add.hbs" class="btn btn-primary">Ajouter</button>
+
 {{outlet}}
