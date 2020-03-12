@@ -13,20 +13,29 @@ export default Route.extend(ConfirmationMixin,{
     return Contacts.create({datas:this.get('store').findAll('contact')});
   },
   actions:{
-    addNew(){
+    edit(model,contact){
+      model.set('contact',contact);
+    },
+    addNew(model){
       var form = document.forms.namedItem("contact-info");
+      
 
-      let contact=this.get('store').createRecord('contact',{name:form.name, firstname:form.firstname, email:form.email});
+      let contact=this.get('store').createRecord('contact',{name:model.get("FName"), firstname:model.get("FFName"), email:model.get("FEmail")});
       contact.save();
     },
+
     remove(contact){
       contact.destroyRecord();
-
     },
+
     cancelUpdates(model){
       model.get('deleteds').forEach((contact)=>{
         contact.rollbackAttributes();
       })
+    },
+
+    modif(){
+
     },
   }
 });

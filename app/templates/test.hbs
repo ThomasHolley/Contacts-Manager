@@ -1,17 +1,86 @@
 <div class="card">
   {{#if model.deletedsCount}}
-    <button {{action "cancelUpdates" model}} class="btn btn-danger">
-      Annuler suppression ({{model.deletedsCount}})
-    </button>
+    <button {{action "cancelUpdates" model}} class="btn btn-danger">Annuler suppression ({{model.deletedsCount}})</button>
   {{/if}}
-  <input type="text" placeholder="Filtrer.." class="form-control" >
+  <input type="text" placeholder="Filtrer.." class="form-control">
 
-  <ul class="list-group list-group-flush">
-    {{#each model.contacts as |contact|}}
-      <li class="list-group-item">{{contact.name}} {{contact.firstname}} {{contact.email}} <button {{action "remove" contact}}>x</button></li>
-    {{/each}}
-  </ul>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {{#each model.contacts as |contact|}}
+            <li class="list-group-item">{{contact.name}}</li>
+          {{/each}}
+        </td>
+        <td>
+          {{#each model.contacts as |contact|}}
+            <li class="list-group-item">{{contact.firstname}}</li>
+          {{/each}}
+        </td>
+        <td>
+          {{#each model.contacts as |contact|}}
+            <li class="list-group-item">{{contact.email}} <button {{action "Modif" contact}}>[...]</button><button {{action "remove" contact}}>x</button></li>
+          {{/each}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<button href="test/add.hbs" class="btn btn-primary">Ajouter</button>
+<br>
+<button {{action "addNew" model}} class="btn btn-warning">New Contact... </button>
+<br>
+
+<form name="contact-info">
+  <div class="form-row">
+    <div class="col">
+      <label for="FormName">Name</label>
+      <Input type="text" class="form-control" placeholder="Name..." @value={{model.FName}} />
+    </div>
+    <div class="col">
+      <label for="FormFirstName">FirstName</label>
+      <Input type="text" class="form-control" placeholder="FirstName..." @value={{model.FFName}} />
+    </div>
+    <div class="col">
+      <label for="Formemail">Email address</label>
+      <Input type="email" class="form-control" placeholder="Email..." @value={{model.FEmail}} />
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary" {{action "addNew" model}}>Ajouter</button>
+</form>
+<br>
+
+<div class="card">
+  <h3>Modifier un contact</h3>
+
+  <form name="contact-Modif">
+    <div class="form-row">
+      <div class="col">
+        <label for="FormName">Name</label>
+        <Input type="text" class="form-control" placeholder="Name..." @value={{model.FName}} />
+      </div>
+      <div class="col">
+        <label for="FormFirstName">FirstName</label>
+        <Input type="text" class="form-control" placeholder="FirstName..." @value={{model.FFName}} />
+      </div>
+      <div class="col">
+        <label for="Formemail">Email address</label>
+        <Input type="email" class="form-control" placeholder="Email..." @value={{model.FEmail}} />
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" {{action "" model}}>Ajouter</button>
+    <button type="submit" class="btn btn-primary" {{action "" model}}>Annuler</button>
+
+  </form>
+</div>
+
 
 {{outlet}}
